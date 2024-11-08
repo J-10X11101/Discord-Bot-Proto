@@ -86,7 +86,7 @@ async def on_member_join(member):
     await dm.send(
         f'Hi {member.name}, welcome to the Discord server!'
     )
-
+#Suggest replacing "message.author.name" with -> "message.author.id" + his ID to avoid name change bypass
 @client.event
 async def on_message(message):
     CHANNELid2 = client.get_channel(1292139882629828660)
@@ -111,10 +111,21 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    
+    
     else:
         loop1break = False
         loop2break = False
         messages = message.content.split(" ")
+
+
+        """
+        Nicknames coming out as >None<
+        Try force updating the cache from discord API
+        either try putting above line 137 and 163
+        or try it above 
+        await message.guild.fetch_member(message.author.id)
+        """
 
         for x in range(len(messages)):
             if loop1break == True:
@@ -176,6 +187,7 @@ async def on_message(message):
             await channel.send("7. ProtoAI Shutdown Protocol (Owner only)")
 
 #Absolute fucking tortue DO NOT ATTEMPT TO FIX
+#Note from J: This is awful, looked at this for an hour, OMG why won't it fucking work someone kill me.
             """         
             if "what is the time in" in (message.content).lower():
             requestedtimeloc = message.content.split("in ")
